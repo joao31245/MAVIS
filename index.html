@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Andressa Mafiollet me ama?</title>
+  <style>
+    body {
+      background-color: pink;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      padding-top: 50px;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: red;
+      margin-bottom: 40px;
+    }
+    #buttons {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn {
+      padding: 20px 40px;
+      font-size: 1.5em;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      max-width: 90vw;
+    }
+    .yes {
+      background-color: #ff69b4;
+      color: white;
+      z-index: 1;
+    }
+    .no {
+      background-color: #ccc;
+      position: absolute;
+      z-index: 2;
+    }
+    #love-section {
+      display: none;
+      margin-top: 50px;
+    }
+    #love-section img {
+      width: 200px;
+      border-radius: 50%;
+      border: 5px solid red;
+    }
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 2em;
+      animation: fly 3s linear infinite;
+    }
+    @keyframes fly {
+      0% {transform: translateY(0) scale(1); opacity: 1;}
+      100% {transform: translateY(-600px) scale(0.5); opacity: 0;}
+    }
+    @media (max-width: 600px) {
+      .btn {
+        font-size: 1.2em;
+        padding: 15px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Andressa Mafiollet, você me ama?</h1>
+  <div id="buttons">
+    <button class="btn yes" onclick="showLove()">Sim ❤️</button>
+    <button class="btn no" id="noButton">Não 💔</button>
+  </div>
+
+  <div id="love-section">
+    <img src="mv.jpeg" alt="Minha foto" />
+    <h2>EU TE AMO TAMBÉM ❤️❤️❤️</h2>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noButton");
+
+    function moveNoButton() {
+      const padding = 10;
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+      const maxX = window.innerWidth - btnWidth - padding;
+      const maxY = window.innerHeight - btnHeight - padding;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    window.addEventListener("resize", moveNoButton);
+
+    function showLove() {
+      document.getElementById("buttons").style.display = "none";
+      const section = document.getElementById("love-section");
+      section.style.display = "block";
+      launchHearts();
+    }
+
+    function launchHearts() {
+      for (let i = 0; i < 50; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerText = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+      setInterval(launchHearts, 2000);
+    }
+  </script>
+</body>
+</html>
